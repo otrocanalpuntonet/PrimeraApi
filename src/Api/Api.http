@@ -1,0 +1,68 @@
+@Api_HostAddress = http://localhost:5235
+
+GET {{Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+### Employees API
+
+@employeeId = 67f3b154-5ef9-4acd-ae15-6e04b6db9741
+
+# Get all employees
+GET {{Api_HostAddress}}/api/Employees?pageSize=5&pageNumber=2
+Accept: application/json
+Content-Type: application/json
+
+{
+
+}
+###
+
+# Get employee by id (replace {{employeeId}} with a real GUID)
+GET {{Api_HostAddress}}/api/Employees/{{employeeId}}
+Accept: application/json
+
+###
+
+# Create employee
+POST {{Api_HostAddress}}/api/Employees
+Content-Type: application/json
+
+{
+	"Name": "miriam w",
+	"position": "cooking s",
+	"CountryId": 3
+}
+
+###
+
+# Update employee (replace {{employeeId}})
+PUT {{Api_HostAddress}}/api/Employees/{{employeeId}}
+Content-Type: application/json
+
+{
+	"id": "{{employeeId}}",
+	"name": "Juan Pérez",
+	"position": "Senior Developer",
+	"active": true
+}
+
+###
+
+# Delete employee
+DELETE {{Api_HostAddress}}/api/Employees/{{employeeId}}
+
+###
+
+# Get all employees
+GET {{Api_HostAddress}}/api/Countries
+Accept: application/json
+
+###
+
+# Get employee by id (replace {{employeeId}} with a real GUID)
+GET {{Api_HostAddress}}/api/Countries/1
+Accept: application/json
+
+###
