@@ -9,10 +9,12 @@ namespace Api.Services;
 public class EmployeeService : IEmployeeService
 {
     private readonly IEmployeeRepository _repository;
+    private readonly IAlmacenadorArchivo _almacenador;
 
-    public EmployeeService(IEmployeeRepository repository)
+    public EmployeeService(IEmployeeRepository repository, IAlmacenadorArchivo almacenador)
     {
         _repository = repository;
+        _almacenador = almacenador;
     }
 
     public async Task<EmployeeDtoResult> AddEmployee(CreateEmployeeDto dto)
@@ -25,6 +27,11 @@ public class EmployeeService : IEmployeeService
             Active = true
         };
 
+        if (dto.Foto is not null)
+        {
+            employeeModel.FotoUrl = await _almacenador.SaveFile("employees", dto.Foto.ConvertirArchivoDTO());
+        }
+
         _repository.AddEmployee(employeeModel);
         await _repository.SaveChangesAsync();
         
@@ -33,6 +40,7 @@ public class EmployeeService : IEmployeeService
             Id = employeeModel.Id,
             Name = employeeModel.Name,
             Position = employeeModel.Position,
+            FotoUrl = employeeModel.FotoUrl,
             Active = employeeModel.Active,
             CountryId = employeeModel.CountryId
         };
@@ -53,6 +61,7 @@ public class EmployeeService : IEmployeeService
                             Id = x.Id,
                             Name = x.Name,
                             Position = x.Position,
+                            FotoUrl = x.FotoUrl,
                             Active = x.Active,
                             CountryId = x.CountryId
                         }
@@ -86,6 +95,7 @@ public class EmployeeService : IEmployeeService
         {
             Id = employee.Id,
             Name = employee.Name,
+            FotoUrl = employee.FotoUrl,
             CountryName = employee.Country.Name,
             Position = employee.Position??"",
             ActiveLabel = employee.Active ? "activo" : "inactivo"
