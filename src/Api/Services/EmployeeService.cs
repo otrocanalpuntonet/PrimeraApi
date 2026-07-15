@@ -9,10 +9,12 @@ namespace Api.Services;
 public class EmployeeService : IEmployeeService
 {
     private readonly IEmployeeRepository _repository;
+    private readonly IFileManagerxx _managerxx;
 
-    public EmployeeService(IEmployeeRepository repository)
+    public EmployeeService(IEmployeeRepository repository, IFileManagerxx managerxx)
     {
         _repository = repository;
+        _managerxx = managerxx;
     }
 
     public async Task<EmployeeDtoResult> AddEmployee(CreateEmployeeDto dto)
@@ -24,6 +26,11 @@ public class EmployeeService : IEmployeeService
             CountryId = dto.CountryId,
             Active = true
         };
+
+        if (dto.Foto is not null)
+        {
+            employeeModel.FotoUrl = await _managerxx.SaveFile("employees", dto.Foto.ConvertToFileDTO());
+        }
 
         _repository.AddEmployee(employeeModel);
         await _repository.SaveChangesAsync();
@@ -88,6 +95,7 @@ public class EmployeeService : IEmployeeService
             Name = employee.Name,
             CountryName = employee.Country.Name,
             Position = employee.Position??"",
+            FotoUrl = employee.FotoUrl,
             ActiveLabel = employee.Active ? "activo" : "inactivo"
         };
     }

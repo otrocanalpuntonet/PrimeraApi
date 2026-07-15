@@ -7,4 +7,5 @@ public class EmployeeDto
     public string CountryName { get; set; } = string.Empty;
     public string Position { get; set; } = string.Empty;
     public string ActiveLabel { get; init; } = string.Empty;
+    public string? FotoUrl { get; set; }
 }

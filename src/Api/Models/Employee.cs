@@ -7,5 +7,6 @@ public class Employee
     public string? Position { get; set; }
     public bool Active { get; set; } = true;
     public int CountryId { get; set; }
+    public string? FotoUrl { get; set; }
     public Country Country { get; set; } = null!;
 }

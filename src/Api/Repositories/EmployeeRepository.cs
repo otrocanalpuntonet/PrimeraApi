@@ -28,6 +28,7 @@ public class EmployeeRepository : IEmployeeRepository
                 Name = e.Name,
                 Position = e.Position,
                 Active = e.Active,
+                FotoUrl = e.FotoUrl,
                 Country = new Country
                 {
                     Id = e.Country.Id,

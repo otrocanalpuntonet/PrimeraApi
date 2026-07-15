@@ -25,6 +25,7 @@ builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<IFileManagerxx, FileManager>();
 
 builder.Services.AddMediatR(cnf => 
     cnf.RegisterServicesFromAssembly(typeof(Program).Assembly)

@@ -54,7 +54,7 @@ public class EmployeesController : ControllerBase
 
     // POST: api/Employees
     [HttpPost]
-    public async Task<ActionResult<Employee>> PostEmployee(CreateEmployeeDto employee)
+    public async Task<ActionResult<Employee>> PostEmployee([FromForm] CreateEmployeeDto employee)
     {
         var createEmployee = await _service.AddEmployee(employee);
   
